@@ -1,100 +1,114 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>保護猫の今と未来</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>しあわせねこ塾</title>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
-      background-color: #fdfcf8;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      line-height: 1.7;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      margin: 0; padding: 0; background: #fff5f7; color: #3a3a3a;
     }
     header {
-      background-color: #f5b6b6;
-      color: #fff;
-      padding: 40px 20px;
+      background: #f48fb1;
+      padding: 20px;
       text-align: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    section {
+    nav {
+      background: #f8bbd0;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding: 12px 0;
+      font-weight: 600;
+    }
+    nav a {
+      color: #5d3a53;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #d81b60;
+    }
+    main {
       max-width: 900px;
       margin: 40px auto;
       padding: 0 20px;
     }
-    h1, h2, h3 {
-      font-weight: 600;
+    h1 {
+      font-size: 2.1rem;
+      margin-bottom: 16px;
+      color: #ad1457;
+    }
+    section.card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(213, 105, 139, 0.1);
+      padding: 24px;
+      margin-bottom: 30px;
+    }
+    section.card h2 {
+      color: #bf4080;
+      margin-top: 0;
+    }
+    ul {
+      list-style: disc inside;
+      line-height: 1.6;
+      padding-left: 0;
+    }
+    ul li {
+      padding: 6px 0;
     }
     footer {
-      background-color: #f0f0f0;
-      color: #666;
       text-align: center;
       padding: 20px;
       font-size: 0.9rem;
-    }
-    .number {
-      font-size: 1.4rem;
-      color: #e36c6c;
-    }
-    ul {
-      background: #fff8f8;
-      padding: 20px;
-      border-radius: 8px;
+      color: #999;
+      background: #f8bbd0;
+      margin-top: 60px;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>保護猫の今と未来</h1>
-    <p>日本の猫たちが直面する現状と、私たちにできること。</p>
+    しあわせねこ塾
   </header>
-
-  <section>
-    <h2>日本の保護猫の現状（2025年）</h2>
-    <p>
-      日本では、かつて毎年数十万頭の猫が殺処分されていました。しかし近年の努力により、
-      <span class="number">2023年度には6,899頭</span>まで減少し、過去最小を更新しました。
-    </p>
-    <p>
-      それでも、まだ<span class="number">1日およそ19頭</span>の猫が命を失っており、特にその
-      <span class="number">6割以上が子猫</span>という厳しい現実があります。
-    </p>
-  </section>
-
-  <section>
-    <h2>主な課題</h2>
-    <ul>
-      <li>不妊・去勢の未実施による繁殖（TNRの遅れ）</li>
-      <li>無責任な餌やり行為による野良猫の増加</li>
-      <li>高齢や経済的理由による飼育放棄</li>
-      <li>小規模保護団体の運営資金不足や医療費負担</li>
-      <li>子猫の育成・譲渡体制の不足</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>取り組みと希望</h2>
-    <p>
-      日本各地で「地域猫活動」や「殺処分ゼロプロジェクト」が広がりつつあり、
-      TNR（捕獲・不妊去勢・元に戻す）を中心とする地域の努力が成果を上げています。
-      保護猫を「かわいそうな存在」ではなく「家族の一員」として迎える文化が、その未来を変えつつあります。
-    </p>
-  </section>
-
-  <section>
-    <h2>あなたにできること</h2>
-    <ul>
-      <li>保護猫カフェの訪問や寄付を通じた支援</li>
-      <li>TNR活動・地域猫ボランティアへの参加</li>
-      <li>正しい飼育方法を学び、終生飼養を徹底する</li>
-      <li>SNSなどで保護猫の現状を広める</li>
-    </ul>
-  </section>
-
+  <nav>
+    <a href="index.html">トップ</a>
+    <a href="status.html">現状と課題</a>
+    <a href="quiz.html">クイズ</a>
+    <a href="support.html">支援方法</a>
+    <a href="about.html">塾について</a>
+    <a href="contact.html">お問い合わせ</a>
+  </nav>
+  <main>
+    <section class="card">
+      <h1>保護猫の現状と未来を学ぼう</h1>
+      <p>「しあわせねこ塾」は、保護猫の現状をわかりやすく伝え、みんなで考える教育サイトです。</p>
+    </section>
+    <section class="card">
+      <h2>日本の保護猫の現状（2025年）</h2>
+      <p>日本では年間約7,000頭の猫が殺処分されていますが、地域の努力で少しずつ減少しています。しかしまだ多くの課題があり、今後もみんなの協力が必要です。</p>
+    </section>
+    <section class="card">
+      <h2>学びのコンテンツ</h2>
+      <ul>
+        <li>保護猫の暮らしや課題を学ぶ</li>
+        <li>楽しいクイズで知識を深める</li>
+        <li>支援・ボランティアの方法を紹介</li>
+      </ul>
+    </section>
+  </main>
   <footer>
-    <p>© 2025 保護猫教育プロジェクト</p>
+    © 2025 しあわせねこ塾 | 保護猫教育プロジェクト
   </footer>
 </body>
 </html>
