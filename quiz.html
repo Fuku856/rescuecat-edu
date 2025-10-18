@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ - しあわせねこ塾</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>しあわせねこ塾</h1>
+                    <p>動物愛護と保護猫について学ぼう</p>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">ホーム</a></li>
+                    <li><a href="learning.html">学習コンテンツ</a></li>
+                    <li><a href="quiz.html" class="active">クイズ</a></li>
+                    <li><a href="about.html">運営者について</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h2>クイズに挑戦しよう！</h2>
+                <p>学習した内容をクイズで確認してみましょう</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- クイズ選択セクション -->
+            <section class="quiz-selection" id="quiz-selection">
+                <h3>クイズを選んでください</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-quiz="basic">
+                        <div class="quiz-icon">📚</div>
+                        <h4>基礎知識クイズ</h4>
+                        <p>動物愛護の基本について</p>
+                        <div class="quiz-info">
+                            <span>問題数: 5問</span>
+                            <span>難易度: 初級</span>
+                        </div>
+                        <button class="btn btn-primary start-quiz-btn" data-quiz="basic">挑戦する</button>
+                    </div>
+                    <div class="quiz-option" data-quiz="rescue">
+                        <div class="quiz-icon">🏠</div>
+                        <h4>保護猫クイズ</h4>
+                        <p>保護猫の現状と課題について</p>
+                        <div class="quiz-info">
+                            <span>問題数: 5問</span>
+                            <span>難易度: 中級</span>
+                        </div>
+                        <button class="btn btn-primary start-quiz-btn" data-quiz="rescue">挑戦する</button>
+                    </div>
+                    <div class="quiz-option" data-quiz="responsibility">
+                        <div class="quiz-icon">❤️</div>
+                        <h4>飼育責任クイズ</h4>
+                        <p>ペットを飼う責任について</p>
+                        <div class="quiz-info">
+                            <span>問題数: 5問</span>
+                            <span>難易度: 中級</span>
+                        </div>
+                        <button class="btn btn-primary start-quiz-btn" data-quiz="responsibility">挑戦する</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- クイズ進行セクション -->
+            <section class="quiz-container" id="quiz-container" style="display: none;">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">1 / 5</span>
+                    </div>
+                    <div class="quiz-score">
+                        <span>正解数: <span id="correct-count">0</span> / <span id="total-questions">5</span></span>
+                    </div>
+                </div>
+
+                <div class="quiz-question" id="quiz-question">
+                    <h3 id="question-text">問題文がここに表示されます</h3>
+                    <div class="quiz-options-list" id="quiz-options-list">
+                        <!-- 選択肢がここに動的に生成されます -->
+                    </div>
+                </div>
+
+                <div class="quiz-feedback" id="quiz-feedback" style="display: none;">
+                    <div class="feedback-content">
+                        <div class="feedback-icon" id="feedback-icon">🎉</div>
+                        <h4 id="feedback-title">正解です！</h4>
+                        <p id="feedback-text">説明文がここに表示されます</p>
+                        <button class="btn btn-primary" id="next-question-btn">次の問題へ</button>
+                    </div>
+                </div>
+
+                <div class="quiz-result" id="quiz-result" style="display: none;">
+                    <div class="result-content">
+                        <div class="result-icon" id="result-icon">🏆</div>
+                        <h3 id="result-title">クイズ完了！</h3>
+                        <div class="result-score">
+                            <p>正解数: <span id="final-score">0</span> / <span id="final-total">5</span></p>
+                            <p>正答率: <span id="percentage">0</span>%</p>
+                        </div>
+                        <div class="result-message" id="result-message">
+                            <p>素晴らしい結果です！</p>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn btn-primary" id="retry-quiz-btn">もう一度挑戦</button>
+                            <button class="btn btn-secondary" id="back-to-selection-btn">クイズ選択に戻る</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>しあわせねこ塾</h4>
+                    <p>動物愛護と保護猫について学ぶ学習サイト</p>
+                </div>
+                <div class="footer-section">
+                    <h4>メニュー</h4>
+                    <ul>
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="learning.html">学習コンテンツ</a></li>
+                        <li><a href="quiz.html">クイズ</a></li>
+                        <li><a href="about.html">運営者について</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>お問い合わせ</h4>
+                    <p>ご質問やご要望がございましたら<br>お気軽にお問い合わせください。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 しあわせねこ塾. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // クイズデータ
+        const quizData = {
+            basic: {
+                title: "基礎知識クイズ",
+                questions: [
+                    {
+                        question: "動物愛護法の正式名称は何ですか？",
+                        options: [
+                            "動物の愛護及び管理に関する法律",
+                            "動物保護法",
+                            "ペット愛護法",
+                            "動物福祉法"
+                        ],
+                        correct: 0,
+                        explanation: "正解は「動物の愛護及び管理に関する法律」です。1973年に制定され、動物の適正な取り扱いについて定められています。"
+                    },
+                    {
+                        question: "動物の5つの自由のうち、正しくないものはどれですか？",
+                        options: [
+                            "飢えと渇きからの自由",
+                            "不快からの自由",
+                            "痛み・傷害・病気からの自由",
+                            "自由に外出する自由"
+                        ],
+                        correct: 3,
+                        explanation: "「自由に外出する自由」は動物の5つの自由には含まれません。5つの自由は、飢えと渇き、不快、痛み・傷害・病気、正常な行動表現、恐怖と苦痛からの自由です。"
+                    },
+                    {
+                        question: "TNR活動の「N」は何を意味しますか？",
+                        options: [
+                            "Natural（自然）",
+                            "Neuter（不妊去勢手術）",
+                            "Nurture（育成）",
+                            "Network（ネットワーク）"
+                        ],
+                        correct: 1,
+                        explanation: "TNRの「N」は「Neuter（不妊去勢手術）」を意味します。TNRは「Trap（捕獲）・Neuter（不妊去勢手術）・Return（元の場所に戻す）」の略です。"
+                    },
+                    {
+                        question: "猫の平均寿命はどのくらいですか？",
+                        options: [
+                            "5-8年",
+                            "10-12年",
+                            "15-20年",
+                            "20-25年"
+                        ],
+                        correct: 2,
+                        explanation: "猫の平均寿命は15-20年です。適切な飼育環境と医療ケアにより、20年以上生きる猫も珍しくありません。"
+                    },
+                    {
+                        question: "動物愛護の目的として最も重要なのは何ですか？",
+                        options: [
+                            "動物を可愛がること",
+                            "動物の生命を尊重し、適切に取り扱うこと",
+                            "動物をペットとして飼うこと",
+                            "動物を保護すること"
+                        ],
+                        correct: 1,
+                        explanation: "動物愛護の目的は、動物の生命を尊重し、動物が苦痛を受けることのないよう適切に取り扱うことです。"
+                    }
+                ]
+            },
+            rescue: {
+                title: "保護猫クイズ",
+                questions: [
+                    {
+                        question: "日本で猫の殺処分が最も多い理由は何ですか？",
+                        options: [
+                            "病気の猫が多い",
+                            "飼い主の遺棄",
+                            "野良猫の繁殖",
+                            "保護施設の不足"
+                        ],
+                        correct: 2,
+                        explanation: "野良猫の繁殖が主な原因です。不妊去勢手術をしていない猫の繁殖により、保護される猫の数が増加しています。"
+                    },
+                    {
+                        question: "保護猫を里親に出す際の一般的な手順で、最初に行うのは何ですか？",
+                        options: [
+                            "面談",
+                            "書類提出",
+                            "事前相談",
+                            "猫との面会"
+                        ],
+                        correct: 2,
+                        explanation: "最初に行うのは「事前相談」です。保護団体に連絡し、里親希望の旨を伝えることから始まります。"
+                    },
+                    {
+                        question: "保護猫の年間飼育費用の目安はいくらですか？",
+                        options: [
+                            "3-5万円",
+                            "5-8万円",
+                            "10-20万円",
+                            "20-30万円"
+                        ],
+                        correct: 2,
+                        explanation: "猫の年間飼育費用は約10-20万円が目安です。フード、医療費、用品代などが含まれます。"
+                    },
+                    {
+                        question: "保護猫が抱える問題として、最も深刻なのは何ですか？",
+                        options: [
+                            "住居不足",
+                            "資金不足",
+                            "健康問題",
+                            "心理的トラウマ"
+                        ],
+                        correct: 0,
+                        explanation: "住居不足が最も深刻な問題です。保護施設の収容能力を超える猫が保護されており、適切な飼育環境の確保が困難です。"
+                    },
+                    {
+                        question: "保護猫活動で最も効果的な支援方法は何ですか？",
+                        options: [
+                            "寄付のみ",
+                            "情報拡散のみ",
+                            "複数の支援方法の組み合わせ",
+                            "ボランティアのみ"
+                        ],
+                        correct: 2,
+                        explanation: "複数の支援方法を組み合わせることが最も効果的です。寄付、情報拡散、ボランティアなど、様々な形で支援することが重要です。"
+                    }
+                ]
+            },
+            responsibility: {
+                title: "飼育責任クイズ",
+                questions: [
+                    {
+                        question: "ペットを飼う際に最も重要な責任は何ですか？",
+                        options: [
+                            "可愛がること",
+                            "最後まで責任を持って飼育すること",
+                            "高価なフードを与えること",
+                            "毎日遊ぶこと"
+                        ],
+                        correct: 1,
+                        explanation: "最も重要な責任は「最後まで責任を持って飼育すること」です。ペットの命を預かるという責任を理解することが大切です。"
+                    },
+                    {
+                        question: "飼育放棄の主な原因として最も多いのは何ですか？",
+                        options: [
+                            "経済的理由",
+                            "飼育の大変さを軽視",
+                            "引っ越し",
+                            "家族の反対"
+                        ],
+                        correct: 1,
+                        explanation: "飼育の大変さを軽視することが最も多い原因です。飼育前に十分な検討と準備をすることが重要です。"
+                    },
+                    {
+                        question: "猫の健康管理で定期的に行うべきことは何ですか？",
+                        options: [
+                            "健康診断とワクチン接種",
+                            "フードの変更",
+                            "おもちゃの交換",
+                            "散歩"
+                        ],
+                        correct: 0,
+                        explanation: "定期的な健康診断とワクチン接種が重要です。年に1-2回の健康診断と、必要なワクチン接種を行いましょう。"
+                    },
+                    {
+                        question: "迷子防止のために推奨される方法は何ですか？",
+                        options: [
+                            "首輪のみ",
+                            "マイクロチップの装着",
+                            "室内飼育のみ",
+                            "名前を呼ぶ練習"
+                        ],
+                        correct: 1,
+                        explanation: "マイクロチップの装着が最も効果的です。首輪が外れても、マイクロチップがあれば身元を特定できます。"
+                    },
+                    {
+                        question: "ペットを飼う前に確認すべきこととして、最も重要なのは何ですか？",
+                        options: [
+                            "家族全員の同意",
+                            "経済的余裕",
+                            "飼育環境の確保",
+                            "上記すべて"
+                        ],
+                        correct: 3,
+                        explanation: "家族全員の同意、経済的余裕、飼育環境の確保、すべてが重要です。ペットを飼う前に十分な準備と検討が必要です。"
+                    }
+                ]
+            }
+        };
+
+        // クイズ管理クラス
+        class QuizManager {
+            constructor() {
+                this.currentQuiz = null;
+                this.currentQuestionIndex = 0;
+                this.correctAnswers = 0;
+                this.totalQuestions = 0;
+                this.quizData = null;
+                
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                // クイズ開始ボタン
+                document.querySelectorAll('.start-quiz-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const quizType = e.target.getAttribute('data-quiz');
+                        this.startQuiz(quizType);
+                    });
+                });
+
+                // 次の問題ボタン
+                document.getElementById('next-question-btn').addEventListener('click', () => {
+                    this.nextQuestion();
+                });
+
+                // リトライボタン
+                document.getElementById('retry-quiz-btn').addEventListener('click', () => {
+                    this.retryQuiz();
+                });
+
+                // 選択に戻るボタン
+                document.getElementById('back-to-selection-btn').addEventListener('click', () => {
+                    this.backToSelection();
+                });
+            }
+
+            startQuiz(quizType) {
+                this.currentQuiz = quizType;
+                this.quizData = quizData[quizType];
+                this.currentQuestionIndex = 0;
+                this.correctAnswers = 0;
+                this.totalQuestions = this.quizData.questions.length;
+
+                // クイズ選択画面を隠し、クイズ画面を表示
+                document.getElementById('quiz-selection').style.display = 'none';
+                document.getElementById('quiz-container').style.display = 'block';
+
+                this.showQuestion();
+            }
+
+            showQuestion() {
+                const question = this.quizData.questions[this.currentQuestionIndex];
+                
+                // 問題文を表示
+                document.getElementById('question-text').textContent = question.question;
+                
+                // 選択肢を生成
+                const optionsList = document.getElementById('quiz-options-list');
+                optionsList.innerHTML = '';
+                
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('button');
+                    optionElement.className = 'quiz-option-btn';
+                    optionElement.textContent = option;
+                    optionElement.addEventListener('click', () => {
+                        this.selectAnswer(index);
+                    });
+                    optionsList.appendChild(optionElement);
+                });
+
+                // 進捗を更新
+                this.updateProgress();
+                
+                // フィードバックと結果を隠す
+                document.getElementById('quiz-feedback').style.display = 'none';
+                document.getElementById('quiz-result').style.display = 'none';
+            }
+
+            selectAnswer(selectedIndex) {
+                const question = this.quizData.questions[this.currentQuestionIndex];
+                const isCorrect = selectedIndex === question.correct;
+                
+                if (isCorrect) {
+                    this.correctAnswers++;
+                }
+
+                // 選択肢を無効化
+                document.querySelectorAll('.quiz-option-btn').forEach((btn, index) => {
+                    btn.disabled = true;
+                    if (index === question.correct) {
+                        btn.classList.add('correct');
+                    } else if (index === selectedIndex && !isCorrect) {
+                        btn.classList.add('incorrect');
+                    }
+                });
+
+                // フィードバックを表示
+                this.showFeedback(isCorrect, question.explanation);
+            }
+
+            showFeedback(isCorrect, explanation) {
+                const feedback = document.getElementById('quiz-feedback');
+                const icon = document.getElementById('feedback-icon');
+                const title = document.getElementById('feedback-title');
+                const text = document.getElementById('feedback-text');
+
+                if (isCorrect) {
+                    icon.textContent = '🎉';
+                    title.textContent = '正解です！';
+                    title.style.color = '#4CAF50';
+                } else {
+                    icon.textContent = '😿';
+                    title.textContent = '不正解です';
+                    title.style.color = '#f44336';
+                }
+
+                text.textContent = explanation;
+                feedback.style.display = 'block';
+            }
+
+            nextQuestion() {
+                this.currentQuestionIndex++;
+                
+                if (this.currentQuestionIndex < this.totalQuestions) {
+                    this.showQuestion();
+                } else {
+                    this.showResult();
+                }
+            }
+
+            showResult() {
+                const percentage = Math.round((this.correctAnswers / this.totalQuestions) * 100);
+                
+                document.getElementById('final-score').textContent = this.correctAnswers;
+                document.getElementById('final-total').textContent = this.totalQuestions;
+                document.getElementById('percentage').textContent = percentage;
+
+                const resultIcon = document.getElementById('result-icon');
+                const resultMessage = document.getElementById('result-message');
+                
+                if (percentage >= 80) {
+                    resultIcon.textContent = '🏆';
+                    resultMessage.innerHTML = '<p>素晴らしい結果です！<br>動物愛護についてよく理解されています。</p>';
+                } else if (percentage >= 60) {
+                    resultIcon.textContent = '👍';
+                    resultMessage.innerHTML = '<p>良い結果です！<br>もう一度学習してから挑戦してみてください。</p>';
+                } else {
+                    resultIcon.textContent = '📚';
+                    resultMessage.innerHTML = '<p>学習コンテンツを復習してから<br>もう一度挑戦してみてください。</p>';
+                }
+
+                document.getElementById('quiz-result').style.display = 'block';
+                document.getElementById('quiz-feedback').style.display = 'none';
+            }
+
+            updateProgress() {
+                const progress = ((this.currentQuestionIndex + 1) / this.totalQuestions) * 100;
+                document.getElementById('progress-fill').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = `${this.currentQuestionIndex + 1} / ${this.totalQuestions}`;
+                document.getElementById('correct-count').textContent = this.correctAnswers;
+                document.getElementById('total-questions').textContent = this.totalQuestions;
+            }
+
+            retryQuiz() {
+                this.startQuiz(this.currentQuiz);
+            }
+
+            backToSelection() {
+                document.getElementById('quiz-selection').style.display = 'block';
+                document.getElementById('quiz-container').style.display = 'none';
+            }
+        }
+
+        // クイズマネージャーを初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            new QuizManager();
+        });
+    </script>
+</body>
+</html>
