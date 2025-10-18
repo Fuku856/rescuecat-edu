@@ -1,117 +1,153 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>現状と課題 - しあわせねこ塾</title>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'M PLUS Rounded 1c', sans-serif;
-      margin: 0; padding: 0; background: #f5f7fa; color: #2e3a59;
-    }
-    header {
-      background: #a7bbc7;
-      padding: 18px;
-      text-align: center;
-      color: #1c2a44;
-      font-weight: 700;
-      font-size: 1.8rem;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    nav {
-      background: #d9e2ec;
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      padding: 10px 0;
-      font-weight: 600;
-    }
-    nav a {
-      color: #3c4c6b;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #1c2a44;
-    }
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    h1, h2 {
-      color: #1c2a44;
-      font-weight: 700;
-    }
-    section.card {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(163, 182, 206, 0.3);
-      padding: 24px;
-      margin-bottom: 30px;
-    }
-    ul {
-      list-style: disc inside;
-      line-height: 1.6;
-      padding-left: 0;
-    }
-    ul li {
-      padding: 6px 0;
-    }
-    .highlight {
-      font-weight: 700;
-      color: #3c6e71;
-    }
-    footer {
-      text-align: center;
-      padding: 22px;
-      font-size: 0.9rem;
-      color: #6b7a8f;
-      background: #d9e2ec;
-      margin-top: 60px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>しあわせねこ塾</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+    background: #fafafa;
+    color: #333;
+  }
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #222;
+    color: #f8f8f8;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.4rem;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  nav {
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    background: #444;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 12px 0;
+    z-index: 999;
+  }
+  nav a {
+    color: #eee;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #ff6f61;
+  }
+  main {
+    max-width: 900px;
+    margin: 140px auto 60px;
+    padding: 0 20px;
+  }
+  section {
+    background: white;
+    margin-bottom: 50px;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  h1, h2 {
+    margin-top: 0;
+    color: #222;
+  }
+  p, ul {
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+  ul {
+    padding-left: 1.4em;
+  }
+  footer {
+    text-align: center;
+    padding: 22px;
+    font-size: 0.9rem;
+    color: #666;
+    background: #222;
+  }
+</style>
 </head>
 <body>
-  <header>
-    しあわせねこ塾
-  </header>
-  <nav>
-    <a href="index.html">トップ</a>
-    <a href="status.html">現状と課題</a>
-    <a href="quiz.html">クイズ</a>
-    <a href="support.html">支援方法</a>
-    <a href="about.html">塾について</a>
-    <a href="contact.html">お問い合わせ</a>
-  </nav>
-  <main>
-    <section class="card">
-      <h1>日本の保護猫の現状（2025年）</h1>
-      <p>日本では年間約7,000頭の猫が殺処分されていますが、地域の努力で少しずつ減少しています。しかしまだ多くの課題があり、今後もみんなの協力が必要です。</p>
-    </section>
 
-    <section class="card">
-      <h2>主な課題</h2>
-      <ul>
-        <li>不妊・去勢の未実施による無秩序な繁殖（TNR活動の促進が必要）</li>
-        <li>野良猫への無責任な餌やりによる増加</li>
-        <li>経済的理由などによる飼育放棄</li>
-        <li>保護団体の資金不足や医療費負担</li>
-        <li>子猫の育成・譲渡体制の不足</li>
-      </ul>
-    </section>
+<header>しあわせねこ塾</header>
+<nav>
+  <a href="#top">トップ</a>
+  <a href="#current-status">現状と課題</a>
+  <a href="#quiz">クイズ</a>
+  <a href="#support">支援方法</a>
+  <a href="#about">サイトについて</a>
+</nav>
 
-    <section class="card">
-      <h2>これからの取り組みと希望</h2>
-      <p>地域猫活動やTNRの推進、保護団体への支援強化が進んでいます。保護猫を「かわいそう」ではなく「大切な家族」として迎える文化づくりが広がっています。</p>
-    </section>
-  </main>
-  <footer>
-    © 2025 しあわせねこ塾 | 保護猫教育プロジェクト
-  </footer>
+<main>
+  <section id="top">
+    <h1>保護猫の現状と未来を学ぶ</h1>
+    <p>保護猫の課題や啓発活動のための情報サイト「しあわせねこ塾」です。誰もが楽しく学べるコンテンツを用意しています。</p>
+  </section>
+
+  <section id="current-status">
+    <h2>日本の保護猫の現状（2025年）</h2>
+    <p>日本では年間約7,000頭の猫が殺処分されていますが、地域の努力で少しずつ減少しています。大切な命を守るため、私たちの協力が必要です。</p>
+  </section>
+
+  <section id="quiz">
+    <h2>クイズで楽しく学ぼう</h2>
+    <p>保護猫の知識をクイズ形式で楽しみながら深めましょう。</p>
+    <a href="quiz.html" style="color:#ff6f61; font-weight:bold; text-decoration:none;">クイズページへ ▶</a>
+  </section>
+
+  <section id="support">
+    <h2>支援・ボランティアの方法</h2>
+    <p>保護猫活動に参加する方法や支援の手助けについて紹介しています。</p>
+  </section>
+
+  <section id="about">
+    <h2>このサイトについて</h2>
+    <p>「しあわせねこ塾」は保護猫啓蒙を目的に運営されており、安心して情報収集いただける場所です。</p>
+  </section>
+</main>
+
+<footer>
+  © 2025 しあわせねこ塾 | 保護猫啓蒙プロジェクト
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const options = {
+    threshold: 0.1
+  };
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  sections.forEach(section => observer.observe(section));
+</script>
+
 </body>
 </html>
