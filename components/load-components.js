@@ -42,9 +42,17 @@ function setupHeaderEvents() {
     const navMenu = document.querySelector('.nav-menu');
     
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
+        const toggleMenu = () => {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
+        };
+        hamburger.addEventListener('click', toggleMenu);
+        // メニュー内のリンクをタップしたら自動で閉じる
+        navMenu.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
         });
     }
 }

@@ -58,28 +58,16 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
     
-    // 猫のイラストのアニメーション
-    const catElements = document.querySelectorAll('.cat, .cat-large');
-    catElements.forEach(cat => {
-        cat.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1) rotate(5deg)';
+    // ヒーロー画像の軽いホバー効果（写真用）
+    const heroImg = document.querySelector('.hero-cat-image');
+    if (heroImg) {
+        heroImg.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.02)';
         });
-        
-        cat.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0deg)';
+        heroImg.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
         });
-    });
-    
-    // ハートのアニメーション
-    const heartElements = document.querySelectorAll('.heart, .heart-large');
-    heartElements.forEach(heart => {
-        heart.addEventListener('click', function() {
-            this.style.animation = 'none';
-            setTimeout(() => {
-                this.style.animation = 'heartbeat 2s ease-in-out infinite';
-            }, 10);
-        });
-    });
+    }
     
     // ボタンのホバー効果
     const buttons = document.querySelectorAll('.btn');
