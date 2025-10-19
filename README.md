@@ -77,14 +77,32 @@
 
 ```
 rescuecat-edu/
-├── index.html          # ホームページ
-├── learning.html       # 学習コンテンツページ
-├── quiz.html          # クイズページ
-├── about.html         # 運営者についてページ
-├── styles.css         # スタイルシート
-├── script.js          # JavaScript
-└── README.md          # このファイル
+├── index.html                    # ホームページ
+├── learning.html                 # 学習コンテンツページ
+├── quiz.html                    # クイズページ
+├── about.html                   # 運営者についてページ
+├── styles.css                   # スタイルシート
+├── script.js                    # JavaScript
+├── components/                  # 共通コンポーネント
+│   ├── header.html              # ヘッダーコンポーネント
+│   ├── footer.html              # フッターコンポーネント
+│   └── load-components.js       # コンポーネント読み込み用JS
+└── README.md                    # このファイル
 ```
+
+## 🔧 共通コンポーネントシステム
+
+サイトのヘッダーとフッターは共通化されており、以下のファイルで管理されています：
+
+- **`components/header.html`**: 全ページ共通のヘッダー
+- **`components/footer.html`**: 全ページ共通のフッター
+- **`components/load-components.js`**: コンポーネントを動的に読み込むJavaScript
+
+### ヘッダー・フッターの編集方法
+
+1. `components/header.html` または `components/footer.html` を編集
+2. 変更は自動的に全ページに反映されます
+3. 現在のページに応じてアクティブなメニューが自動設定されます
 
 ## 🌟 今後の予定
 

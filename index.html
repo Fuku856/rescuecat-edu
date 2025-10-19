@@ -8,27 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="nav-container">
-                <div class="logo">
-                    <h1>しあわせねこ塾</h1>
-                    <p>動物愛護と保護猫について知ろう</p>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="index.html">ホーム</a></li>
-                    <li><a href="learning.html">学習コンテンツ</a></li>
-                    <li><a href="quiz.html">クイズ</a></li>
-                    <li><a href="about.html">運営者について</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- ヘッダーは動的に読み込まれます -->
+    <div id="header-placeholder"></div>
 
     <main>
         <!-- ヒーローセクション -->
@@ -133,33 +114,10 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>しあわせねこ塾</h4>
-                    <p>動物愛護と保護猫について学ぶ学習サイト<br>子供から大人まで、家族みんなで動物愛護について考えるきっかけを提供します。</p>
-                </div>
-                <div class="footer-section">
-                    <h4>メニュー</h4>
-                    <ul>
-                        <li><a href="index.html">ホーム</a></li>
-                        <li><a href="learning.html">学習コンテンツ</a></li>
-                        <li><a href="quiz.html">クイズ</a></li>
-                        <li><a href="about.html">運営者について</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>お問い合わせ</h4>
-                    <p>ご質問やご要望がございましたら<br>お気軽にお問い合わせください。</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 しあわせねこ塾. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- フッターは動的に読み込まれます -->
+    <div id="footer-placeholder"></div>
 
+    <script src="components/load-components.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

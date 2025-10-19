@@ -1,16 +1,7 @@
 // 基本的なJavaScript機能
 
 document.addEventListener('DOMContentLoaded', function() {
-    // ハンバーガーメニューの機能
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
-    }
+    // ハンバーガーメニューの機能は load-components.js で処理されます
     
     // スムーススクロール機能
     const links = document.querySelectorAll('a[href^="#"]');
