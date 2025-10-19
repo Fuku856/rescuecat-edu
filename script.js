@@ -58,28 +58,17 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
     
-    // 猫のイラストのアニメーション
-    const catElements = document.querySelectorAll('.cat, .cat-large');
-    catElements.forEach(cat => {
-        cat.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1) rotate(5deg)';
+    // ヒーロー画像のホバー効果
+    const heroImage = document.querySelector('.hero-cat-image');
+    if (heroImage) {
+        heroImage.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
         });
         
-        cat.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotate(0deg)';
+        heroImage.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
         });
-    });
-    
-    // ハートのアニメーション
-    const heartElements = document.querySelectorAll('.heart, .heart-large');
-    heartElements.forEach(heart => {
-        heart.addEventListener('click', function() {
-            this.style.animation = 'none';
-            setTimeout(() => {
-                this.style.animation = 'heartbeat 2s ease-in-out infinite';
-            }, 10);
-        });
-    });
+    }
     
     // ボタンのホバー効果
     const buttons = document.querySelectorAll('.btn');
@@ -164,14 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }, index * 200);
     });
     
-    // 星のアニメーション
-    const stars = document.querySelectorAll('.stars span');
-    stars.forEach((star, index) => {
-        star.addEventListener('click', function() {
-            this.style.animation = 'none';
-            setTimeout(() => {
-                this.style.animation = 'twinkle 2s ease-in-out infinite';
-            }, 10);
+    // 画像の遅延読み込み効果
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('load', function() {
+            this.classList.add('loaded');
         });
     });
     

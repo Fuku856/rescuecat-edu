@@ -171,87 +171,24 @@ body {
     transform: translateY(-2px);
 }
 
-/* 猫のイラスト */
-.cat-illustration {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
+/* ヒーロー画像 */
+.hero-cat-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    opacity: 0;
 }
 
-.cat {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(45deg, #ffd93d, #ff6b6b);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: relative;
-    animation: float 3s ease-in-out infinite;
+.hero-cat-image:hover {
+    transform: scale(1.05);
 }
 
-.cat::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 30px;
-    width: 20px;
-    height: 20px;
-    background-color: #333;
-    border-radius: 50%;
-    box-shadow: 60px 0 0 #333;
-}
-
-.cat::after {
-    content: '';
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 15px;
-    background-color: #333;
-    border-radius: 0 0 15px 15px;
-}
-
-.heart {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 30px;
-    height: 30px;
-    background-color: #ff6b6b;
-    transform: rotate(45deg);
-    animation: heartbeat 2s ease-in-out infinite;
-}
-
-.heart::before,
-.heart::after {
-    content: '';
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: #ff6b6b;
-    border-radius: 50%;
-}
-
-.heart::before {
-    top: -15px;
-    left: 0;
-}
-
-.heart::after {
-    top: 0;
-    left: -15px;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-@keyframes heartbeat {
-    0%, 100% { transform: rotate(45deg) scale(1); }
-    50% { transform: rotate(45deg) scale(1.1); }
+.hero-cat-image.loaded {
+    opacity: 1;
 }
 
 /* 特徴セクション */
@@ -1165,102 +1102,24 @@ body {
     margin-bottom: 20px;
 }
 
-.cat-illustration-large {
-    position: relative;
+.about-text-image {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    height: 300px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 400px;
+    justify-content: center;
 }
 
-.cat-large {
-    width: 250px;
-    height: 250px;
-    background: linear-gradient(45deg, #ffd93d, #ff6b6b);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: relative;
-    animation: float 3s ease-in-out infinite;
-}
-
-.cat-large::before {
-    content: '';
-    position: absolute;
-    top: 25px;
-    left: 40px;
-    width: 25px;
-    height: 25px;
-    background-color: #333;
-    border-radius: 50%;
-    box-shadow: 75px 0 0 #333;
-}
-
-.cat-large::after {
-    content: '';
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 35px;
-    height: 18px;
-    background-color: #333;
-    border-radius: 0 0 18px 18px;
-}
-
-.heart-large {
-    position: absolute;
-    top: 60px;
-    right: 60px;
-    width: 40px;
-    height: 40px;
-    background-color: #ff6b6b;
-    transform: rotate(45deg);
-    animation: heartbeat 2s ease-in-out infinite;
-}
-
-.heart-large::before,
-.heart-large::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-color: #ff6b6b;
-    border-radius: 50%;
-}
-
-.heart-large::before {
-    top: -20px;
-    left: 0;
-}
-
-.heart-large::after {
-    top: 0;
-    left: -20px;
-}
-
-.stars {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.stars span {
-    display: block;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    animation: twinkle 2s ease-in-out infinite;
-}
-
-.stars span:nth-child(2) {
-    animation-delay: 0.5s;
-}
-
-.stars span:nth-child(3) {
-    animation-delay: 1s;
-}
-
-@keyframes twinkle {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
+.about-text-image p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .activities-section {
