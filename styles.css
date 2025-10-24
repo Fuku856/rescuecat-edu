@@ -19,6 +19,45 @@ body {
     padding: 0 20px;
 }
 
+/* Page load smoothing for asynchronously loaded header/footer */
+/* hide/offset content while components are being fetched to avoid layout jumps */
+body.components-loading main,
+body.components-loading .container,
+body.components-loading header,
+body.components-loading footer {
+    opacity: 0;
+    transform: translateY(8px) scale(0.999);
+    transition: opacity 360ms cubic-bezier(.2,.8,.2,1), transform 360ms cubic-bezier(.2,.8,.2,1);
+    pointer-events: none;
+}
+
+/* reveal when components are ready */
+body.components-ready main,
+body.components-ready .container,
+body.components-ready header,
+body.components-ready footer {
+    opacity: 1;
+    transform: none;
+    transition: opacity 420ms cubic-bezier(.2,.8,.2,1), transform 420ms cubic-bezier(.2,.8,.2,1);
+    pointer-events: auto;
+}
+
+/* subtle global hover lift for interactive elements after ready */
+body.components-ready a:hover,
+body.components-ready .btn:hover,
+body.components-ready .feature-card:hover,
+body.components-ready .activity-card:hover,
+body.components-ready .content-card:hover,
+body.components-ready .support-way:hover,
+body.components-ready .philosophy-item:hover {
+    transform: translateY(-6px) scale(1.01);
+    transition: transform 180ms ease;
+}
+
+/* Skeleton visuals for placeholders */
+.header-skeleton { background: linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02)); }
+.footer-skeleton { background: linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02)); }
+
 /* ヘッダー */
 .header {
     background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
