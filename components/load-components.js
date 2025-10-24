@@ -35,18 +35,32 @@ function loadComponents() {
     // 両方完了 (またはタイムアウト) で ready にする
     const done = Promise.all([headerFetch.catch(() => {}), footerFetch.catch(() => {})]);
 
-    // 安全のためのタイムアウト: 2.5 秒後に強制的に ready にする
-    const timeout = new Promise(resolve => setTimeout(resolve, 2500));
+    // 安全のためのタイムアウト: 2秒後に強制的に ready にする
+    const timeout = new Promise(resolve => setTimeout(resolve, 2000));
 
     Promise.race([done, timeout]).then(() => {
-        // 読み込みクラスを切り替えてトランジションを発火
-        document.body.classList.remove('components-loading');
-        document.body.classList.add('components-ready');
-        // 少ししてスケルトンを消す（あれば）
+        // アニメーション用のクラスを付与（読み込み完了後）
+        document.body.classList.add('components-animate');
+        
+        // 1.5秒かけて段階的にアニメーション
         setTimeout(() => {
-            const s = document.querySelectorAll('.header-skeleton, .footer-skeleton');
-            s.forEach(el => el && el.remove());
-        }, 350);
+            document.body.classList.remove('components-loading');
+            document.body.classList.add('components-ready');
+            
+            // コンテンツを段階的に表示
+            const elements = document.querySelectorAll('.hero-content, .features, .learning-preview, .quiz-section, .about-section, .activities-section');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('element-visible');
+                }, index * 150); // 各要素を150msずつ遅延表示
+            });
+            
+            // スケルトンを最後に消す
+            setTimeout(() => {
+                const s = document.querySelectorAll('.header-skeleton, .footer-skeleton');
+                s.forEach(el => el && el.remove());
+            }, 1500);
+        }, 100);
     });
 }
 
