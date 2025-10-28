@@ -106,35 +106,41 @@ function setupHeaderEvents() {
         };
 
         const closeMenu = () => {
-            // 軽いクローズアニメーションをメニューに与える
+            // クローズアニメーションを開始
             document.body.classList.add('menu-closing');
             navMenu.classList.add('closing');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
 
-            // オーバーレイ除去はすぐ行う
-            removeOverlay();
+            // オーバーレイのフェードアウトを開始
+            if (overlayEl) {
+                overlayEl.style.opacity = '0';
+            }
 
-            // アニメーションが終わったら実際に inactive にする
+            // アニメーション完了を待って状態をリセット
             setTimeout(() => {
-                navMenu.classList.remove('active');
-                navMenu.classList.remove('closing');
-                hamburger.classList.remove('active');
-                document.body.classList.remove('menu-open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                // menu-closing を外して通常のトランジションに戻す
-                document.body.classList.remove('menu-closing');
-            }, 200);
+                navMenu.classList.remove('active', 'closing');
+                document.body.classList.remove('menu-open', 'menu-closing');
+                removeOverlay();
+            }, 300);
         };
 
         const toggleMenu = () => {
             const willOpen = !navMenu.classList.contains('active');
+            
+            // スムーズな開閉のために状態をリセット
+            navMenu.classList.remove('closing');
+            document.body.classList.remove('menu-closing');
+            
             if (willOpen) {
-                // 開くときは closing を確実に外しておく
-                navMenu.classList.remove('closing');
-                navMenu.classList.add('active');
-                hamburger.classList.add('active');
-                document.body.classList.add('menu-open');
-                hamburger.setAttribute('aria-expanded', 'true');
+                // メニューを開く
                 createOverlay();
+                requestAnimationFrame(() => {
+                    navMenu.classList.add('active');
+                    hamburger.classList.add('active');
+                    document.body.classList.add('menu-open');
+                    hamburger.setAttribute('aria-expanded', 'true');
+                });
             } else {
                 closeMenu();
             }
