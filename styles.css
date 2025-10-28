@@ -1694,6 +1694,19 @@ body.components-ready .philosophy-item:hover {
     .nav-menu.active {
         display: flex;
     }
+
+    /* モバイルメニュー表示時のリンク色（白背景に対して見やすく） */
+    .nav-menu a {
+        color: #333;
+        padding: 12px 16px;
+        display: block;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+        background-color: rgba(255,107,107,0.08);
+        color: #ff6b6b;
+    }
     
     .hero-content {
         text-align: center;
@@ -1754,6 +1767,34 @@ body.components-ready .philosophy-item:hover {
         padding: 12px 25px;
         font-size: 0.9rem;
     }
+}
+
+/* メニューオープン時にページ全体へ軽いホバー/フォーカス効果を適用 */
+body.menu-open {
+    overflow: hidden; /* 背景のスクロールを抑える */
+}
+
+body.menu-open main,
+body.menu-open .container {
+    transform: translateY(-6px) scale(0.995);
+    filter: blur(3px) brightness(0.92);
+    transition: transform 400ms cubic-bezier(0.4,0,0.2,1), filter 400ms cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none; /* メニュー開時は背景操作を無効化 */
+}
+
+/* 背景に薄いオーバーレイ（視線をメニューへ誘導） */
+body.menu-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.18);
+    z-index: 999; /* ナビより下、メニューより上に見えるようにするため調整 */
+    pointer-events: none;
+}
+
+/* メニュー自体の前面位置を確保 */
+.nav-menu {
+    z-index: 1001;
 }
 
 @media (max-width: 480px) {

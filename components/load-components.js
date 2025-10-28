@@ -86,15 +86,28 @@ function setupHeaderEvents() {
     
     if (hamburger && navMenu) {
         const toggleMenu = () => {
-            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.toggle('active');
             hamburger.classList.toggle('active');
+            // ボディに menu-open を付けてページ全体のスタイルを変えられるようにする
+            document.body.classList.toggle('menu-open', isOpen);
+            // アクセシビリティ向けに aria-expanded を切り替え
+            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         };
         hamburger.addEventListener('click', toggleMenu);
+        // キーボード操作（Enter / Space）で開閉できるようにする
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMenu();
+            }
+        });
         // メニュー内のリンクをタップしたら自動で閉じる
         navMenu.querySelectorAll('a').forEach(a => {
             a.addEventListener('click', () => {
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                hamburger.setAttribute('aria-expanded', 'false');
             });
         });
     }
