@@ -256,3 +256,37 @@ const utils = {
 
 // グローバルに公開
 window.utils = utils;
+
+// ヘッダーの表示/非表示をスクロールで切り替える（下スクロールで隠す、上スクロールで表示）
+(function() {
+    function initHeaderScroll() {
+        const header = document.querySelector('.header');
+        if (!header) return false;
+
+        let lastY = window.scrollY || 0;
+        const threshold = 10; // 変化量の閾値
+
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY || 0;
+            if (y > lastY + threshold && y > 80) {
+                // スクロールダウン -> ヘッダーを隠す
+                header.classList.add('header-hidden');
+            } else if (y < lastY - threshold) {
+                // スクロールアップ -> ヘッダーを表示
+                header.classList.remove('header-hidden');
+            }
+            lastY = y;
+        }, { passive: true });
+
+        return true;
+    }
+
+    // ページ読み込み時に header がまだ挿入されていないことがあるのでポーリングで監視
+    if (!initHeaderScroll()) {
+        const poll = setInterval(() => {
+            if (initHeaderScroll()) clearInterval(poll);
+        }, 200);
+        // 最大5秒で打ち切り
+        setTimeout(() => clearInterval(poll), 5000);
+    }
+})();

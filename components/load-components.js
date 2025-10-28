@@ -85,14 +85,49 @@ function setupHeaderEvents() {
     const navMenu = document.querySelector('.nav-menu');
     
     if (hamburger && navMenu) {
-        const toggleMenu = () => {
-            const isOpen = navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            // ボディに menu-open を付けてページ全体のスタイルを変えられるようにする
-            document.body.classList.toggle('menu-open', isOpen);
-            // アクセシビリティ向けに aria-expanded を切り替え
-            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        let overlayEl = null;
+
+        const createOverlay = () => {
+            overlayEl = document.createElement('div');
+            overlayEl.className = 'menu-overlay';
+            overlayEl.addEventListener('click', closeMenu);
+            document.body.appendChild(overlayEl);
         };
+
+        const removeOverlay = () => {
+            if (overlayEl) {
+                overlayEl.remove();
+                overlayEl = null;
+            }
+        };
+
+        const closeMenu = () => {
+            // 素早くページに戻すためトランジション無効クラスを一時付与
+            document.body.classList.add('menu-closing');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            hamburger.setAttribute('aria-expanded', 'false');
+            removeOverlay();
+            // 微小タイムアウトで menu-closing を外す（素早く戻す）
+            setTimeout(() => {
+                document.body.classList.remove('menu-closing');
+            }, 50);
+        };
+
+        const toggleMenu = () => {
+            const willOpen = !navMenu.classList.contains('active');
+            if (willOpen) {
+                navMenu.classList.add('active');
+                hamburger.classList.add('active');
+                document.body.classList.add('menu-open');
+                hamburger.setAttribute('aria-expanded', 'true');
+                createOverlay();
+            } else {
+                closeMenu();
+            }
+        };
+
         hamburger.addEventListener('click', toggleMenu);
         // キーボード操作（Enter / Space）で開閉できるようにする
         hamburger.addEventListener('keydown', (e) => {
@@ -101,13 +136,11 @@ function setupHeaderEvents() {
                 toggleMenu();
             }
         });
+
         // メニュー内のリンクをタップしたら自動で閉じる
         navMenu.querySelectorAll('a').forEach(a => {
             a.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.classList.remove('menu-open');
-                hamburger.setAttribute('aria-expanded', 'false');
+                closeMenu();
             });
         });
     }

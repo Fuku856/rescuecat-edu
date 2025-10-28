@@ -107,6 +107,16 @@ body.components-ready .philosophy-item:hover {
     height: 80px;
 }
 
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-link h1, .logo-link p {
+    margin: 0;
+}
+
 .logo h1 {
     color: white;
     font-size: 1.8rem;
@@ -1783,13 +1793,30 @@ body.menu-open .container {
 }
 
 /* 背景に薄いオーバーレイ（視線をメニューへ誘導） */
-body.menu-open::before {
-    content: '';
+/* メニュー用のクリック可能なオーバーレイ（メニュー外をタップで閉じる） */
+.menu-overlay {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.18);
-    z-index: 999; /* ナビより下、メニューより上に見えるようにするため調整 */
-    pointer-events: none;
+    z-index: 1000; /* ナビより下、メニューより上 */
+}
+
+/* メニューを閉じるときは素早く効果を戻すためのクラス */
+.menu-closing main,
+.menu-closing .container,
+.menu-closing header,
+.menu-closing footer {
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+}
+
+/* ヘッダーの表示/非表示（スクロールに応じて適用） */
+.header {
+    transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.header-hidden {
+    transform: translateY(-110%);
 }
 
 /* メニュー自体の前面位置を確保 */
