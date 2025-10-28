@@ -254,42 +254,54 @@ window.utils = utils;
 
         let lastY = window.pageYOffset || 0;
         let ticking = false;
-        const delta = 8; // 小さめの閾値にして感度を上げる
+        let timeout = null;
+        const delta = 5; // より小さい閾値で感度を上げる
 
         function onScroll() {
             const y = window.pageYOffset || 0;
 
-            // メニューを開いている間はヘッダーを自動で隠さない（メニューの操作性を優先）
+            // メニューを開いている間はヘッダーを自動で隠さない
             if (document.body.classList.contains('menu-open')) {
                 header.classList.remove('header-hidden');
                 lastY = y;
                 return;
             }
 
+            // スクロール停止後のタイムアウトをリセット
+            if (timeout) {
+                clearTimeout(timeout);
+            }
+
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const diff = y - lastY;
 
-                    // 常にトップ付近ではヘッダーを表示
-                    if (y <= 10) {
+                    // トップ付近または急な上スクロールではヘッダーを表示
+                    if (y <= 60 || diff < -delta * 2) {
                         header.classList.remove('header-hidden');
-                    } else if (diff > delta && y > 60) {
-                        // 明確に下へスクロールした場合は非表示
+                    } 
+                    // 下スクロールかつある程度の速さの場合は非表示
+                    else if (diff > delta && y > 60) {
                         header.classList.add('header-hidden');
-                    } else if (diff < -delta) {
-                        // 上へスクロールした場合は表示
-                        header.classList.remove('header-hidden');
+                    }
+                    // ゆっくりとしたスクロールの場合は現状維持
+                    else if (Math.abs(diff) <= delta) {
+                        // 状態を変更しない
                     }
 
                     lastY = y;
                     ticking = false;
+
+                    // スクロール停止後0.5秒でヘッダーを表示
+                    timeout = setTimeout(() => {
+                        header.classList.remove('header-hidden');
+                    }, 500);
                 });
                 ticking = true;
             }
         }
 
         window.addEventListener('scroll', onScroll, { passive: true });
-
         return true;
     }
 

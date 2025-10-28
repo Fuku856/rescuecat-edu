@@ -90,7 +90,11 @@ function setupHeaderEvents() {
         const createOverlay = () => {
             overlayEl = document.createElement('div');
             overlayEl.className = 'menu-overlay';
-            overlayEl.addEventListener('click', closeMenu);
+            overlayEl.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                closeMenu();
+            });
             document.body.appendChild(overlayEl);
         };
 
