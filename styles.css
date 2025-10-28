@@ -1805,6 +1805,13 @@ body.menu-open header {
     pointer-events: auto; /* ヘッダー内のメニューはクリック可能にする */
 }
 
+/* nav-menu 自体はブラーや pointer-events の影響を受けないようにする */
+body.menu-open .nav-menu,
+body.menu-open .nav-container .hamburger {
+    filter: none !important;
+    pointer-events: auto !important;
+}
+
 body.menu-open main,
 body.menu-open .container,
 body.menu-open footer {

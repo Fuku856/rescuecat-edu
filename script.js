@@ -259,6 +259,13 @@ window.utils = utils;
         function onScroll() {
             const y = window.pageYOffset || 0;
 
+            // メニューを開いている間はヘッダーを自動で隠さない（メニューの操作性を優先）
+            if (document.body.classList.contains('menu-open')) {
+                header.classList.remove('header-hidden');
+                lastY = y;
+                return;
+            }
+
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const diff = y - lastY;
@@ -266,11 +273,11 @@ window.utils = utils;
                     // 常にトップ付近ではヘッダーを表示
                     if (y <= 10) {
                         header.classList.remove('header-hidden');
-                    } else if (diff > delta) {
-                        // 下スクロールで非表示
+                    } else if (diff > delta && y > 60) {
+                        // 明確に下へスクロールした場合は非表示
                         header.classList.add('header-hidden');
                     } else if (diff < -delta) {
-                        // 上スクロールで表示
+                        // 上へスクロールした場合は表示
                         header.classList.remove('header-hidden');
                     }
 
