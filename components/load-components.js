@@ -102,22 +102,30 @@ function setupHeaderEvents() {
         };
 
         const closeMenu = () => {
-            // 素早くページに戻すためトランジション無効クラスを一時付与
+            // 軽いクローズアニメーションをメニューに与える
             document.body.classList.add('menu-closing');
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-            document.body.classList.remove('menu-open');
-            hamburger.setAttribute('aria-expanded', 'false');
+            navMenu.classList.add('closing');
+
+            // オーバーレイ除去はすぐ行う
             removeOverlay();
-            // 微小タイムアウトで menu-closing を外す（素早く戻す）
+
+            // アニメーションが終わったら実際に inactive にする
             setTimeout(() => {
+                navMenu.classList.remove('active');
+                navMenu.classList.remove('closing');
+                hamburger.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                // menu-closing を外して通常のトランジションに戻す
                 document.body.classList.remove('menu-closing');
-            }, 50);
+            }, 200);
         };
 
         const toggleMenu = () => {
             const willOpen = !navMenu.classList.contains('active');
             if (willOpen) {
+                // 開くときは closing を確実に外しておく
+                navMenu.classList.remove('closing');
                 navMenu.classList.add('active');
                 hamburger.classList.add('active');
                 document.body.classList.add('menu-open');

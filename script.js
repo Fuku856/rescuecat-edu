@@ -164,23 +164,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // レスポンシブメニューの改善
+    // レスポンシブは CSS 側で処理するため、ここでは表示切替を行わない
     const mediaQuery = window.matchMedia('(max-width: 768px)');
-    const handleMediaChange = (e) => {
-        if (e.matches) {
-            // モバイル表示時の処理
-            const navMenu = document.querySelector('.nav-menu');
-            if (navMenu) {
-                navMenu.style.display = 'none';
-            }
-        } else {
-            // デスクトップ表示時の処理
-            const navMenu = document.querySelector('.nav-menu');
-            if (navMenu) {
-                navMenu.style.display = 'flex';
-            }
-        }
+    const handleMediaChange = (/* e */) => {
+        // no-op: CSS handles layout/responsiveness and animations
     };
-    
     mediaQuery.addListener(handleMediaChange);
     handleMediaChange(mediaQuery);
     

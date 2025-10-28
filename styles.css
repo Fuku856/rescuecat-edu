@@ -1686,8 +1686,9 @@ body.components-ready .philosophy-item:hover {
         display: flex;
     }
     
+    /* モバイルでは display を切り替えずに opacity/transform でアニメーションさせる */
     .nav-menu {
-        display: none;
+        /* 継承された display:flex は有効のままにする（横並びは media ルールで崩さない） */
         position: absolute;
         top: 80px;
         right: 20px;
@@ -1699,10 +1700,23 @@ body.components-ready .philosophy-item:hover {
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         padding: 12px;
         z-index: 1001;
+        opacity: 0;
+        transform: translateY(-8px) scale(0.995);
+        pointer-events: none;
+        transition: opacity 260ms cubic-bezier(0.4,0,0.2,1), transform 260ms cubic-bezier(0.4,0,0.2,1);
     }
 
     .nav-menu.active {
-        display: flex;
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+    }
+
+    /* closing アニメーション（メニュー閉時に軽く動かす） */
+    .nav-menu.closing {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.995);
+        transition: opacity 180ms ease, transform 180ms ease;
     }
 
     /* モバイルメニュー表示時のリンク色（白背景に対して見やすく） */
@@ -1786,9 +1800,9 @@ body.menu-open {
 
 body.menu-open main,
 body.menu-open .container {
-    transform: translateY(-6px) scale(0.995);
-    filter: blur(3px) brightness(0.92);
-    transition: transform 400ms cubic-bezier(0.4,0,0.2,1), filter 400ms cubic-bezier(0.4,0,0.2,1);
+    transform: translateY(-4px) scale(0.997);
+    filter: blur(2px) brightness(0.97);
+    transition: transform 300ms cubic-bezier(0.4,0,0.2,1), filter 300ms cubic-bezier(0.4,0,0.2,1);
     pointer-events: none; /* メニュー開時は背景操作を無効化 */
 }
 
@@ -1797,7 +1811,7 @@ body.menu-open .container {
 .menu-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.18);
+    background: rgba(0,0,0,0.06);
     z-index: 1000; /* ナビより下、メニューより上 */
 }
 
@@ -1816,7 +1830,7 @@ body.menu-open .container {
     transition: transform 220ms ease, box-shadow 220ms ease;
 }
 .header-hidden {
-    transform: translateY(-110%);
+    transform: translateY(-100%);
 }
 
 /* メニュー自体の前面位置を確保 */
