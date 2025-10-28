@@ -258,35 +258,52 @@ const utils = {
 window.utils = utils;
 
 // ヘッダーの表示/非表示をスクロールで切り替える（下スクロールで隠す、上スクロールで表示）
+// ヘッダーの表示/非表示をスクロールで切り替える（下スクロールで隠す、上スクロールで表示）
 (function() {
     function initHeaderScroll() {
         const header = document.querySelector('.header');
         if (!header) return false;
 
-        let lastY = window.scrollY || 0;
-        const threshold = 10; // 変化量の閾値
+        let lastY = window.pageYOffset || 0;
+        let ticking = false;
+        const delta = 8; // 小さめの閾値にして感度を上げる
 
-        window.addEventListener('scroll', () => {
-            const y = window.scrollY || 0;
-            if (y > lastY + threshold && y > 80) {
-                // スクロールダウン -> ヘッダーを隠す
-                header.classList.add('header-hidden');
-            } else if (y < lastY - threshold) {
-                // スクロールアップ -> ヘッダーを表示
-                header.classList.remove('header-hidden');
+        function onScroll() {
+            const y = window.pageYOffset || 0;
+
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const diff = y - lastY;
+
+                    // 常にトップ付近ではヘッダーを表示
+                    if (y <= 10) {
+                        header.classList.remove('header-hidden');
+                    } else if (diff > delta) {
+                        // 下スクロールで非表示
+                        header.classList.add('header-hidden');
+                    } else if (diff < -delta) {
+                        // 上スクロールで表示
+                        header.classList.remove('header-hidden');
+                    }
+
+                    lastY = y;
+                    ticking = false;
+                });
+                ticking = true;
             }
-            lastY = y;
-        }, { passive: true });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
 
         return true;
     }
 
-    // ページ読み込み時に header がまだ挿入されていないことがあるのでポーリングで監視
+    // header が動的に挿入されるためポーリングして初期化
     if (!initHeaderScroll()) {
         const poll = setInterval(() => {
             if (initHeaderScroll()) clearInterval(poll);
-        }, 200);
-        // 最大5秒で打ち切り
-        setTimeout(() => clearInterval(poll), 5000);
+        }, 150);
+        // 最大10秒で打ち切り（長めにして確実に捕まえる）
+        setTimeout(() => clearInterval(poll), 10000);
     }
 })();
