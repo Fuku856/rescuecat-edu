@@ -90,19 +90,31 @@ function setupHeaderEvents() {
         const createOverlay = () => {
             overlayEl = document.createElement('div');
             overlayEl.className = 'menu-overlay';
+            // 初期は透明にしてからフェードイン
+            overlayEl.style.opacity = '0';
+            overlayEl.style.transition = 'opacity 300ms ease';
             overlayEl.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 closeMenu();
             });
             document.body.appendChild(overlayEl);
+            // 次のフレームでフェードイン
+            requestAnimationFrame(() => {
+                if (overlayEl) overlayEl.style.opacity = '1';
+            });
         };
 
         const removeOverlay = () => {
-            if (overlayEl) {
-                overlayEl.remove();
+            if (!overlayEl) return;
+            // フェードアウトしてから削除
+            overlayEl.style.opacity = '0';
+            setTimeout(() => {
+                if (overlayEl && overlayEl.parentNode) {
+                    overlayEl.parentNode.removeChild(overlayEl);
+                }
                 overlayEl = null;
-            }
+            }, 320);
         };
 
         const closeMenu = () => {
@@ -112,17 +124,14 @@ function setupHeaderEvents() {
             hamburger.classList.remove('active');
             hamburger.setAttribute('aria-expanded', 'false');
 
-            // オーバーレイのフェードアウトを開始
-            if (overlayEl) {
-                overlayEl.style.opacity = '0';
-            }
+            // オーバーレイをフェードアウトして削除（removeOverlay がフェードアウトを扱う）
+            removeOverlay();
 
             // アニメーション完了を待って状態をリセット
             setTimeout(() => {
                 navMenu.classList.remove('active', 'closing');
                 document.body.classList.remove('menu-open', 'menu-closing');
-                removeOverlay();
-            }, 300);
+            }, 320);
         };
 
         const toggleMenu = () => {

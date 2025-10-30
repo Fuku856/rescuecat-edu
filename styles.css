@@ -1706,23 +1706,22 @@ body.components-ready .philosophy-item:hover {
     /* モバイルメニュー */
     .nav-menu {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 20px;
         background: rgba(255,255,255,0.98);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(2px);
+        backdrop-filter: blur(2px);
         padding: 20px;
-        z-index: 1001;
+        z-index: 1002;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(-20px);
-        transition: all 300ms cubic-bezier(0.4,0,0.2,1);
+        transform: translateY(-8px) scale(0.995);
+        transition: opacity 260ms cubic-bezier(0.4,0,0.2,1), transform 260ms cubic-bezier(0.4,0,0.2,1), visibility 260ms;
+        pointer-events: none;
     }
 
     .nav-menu.active {
@@ -1857,7 +1856,7 @@ body.menu-open header {
     background: rgba(0,0,0,0.3);
     opacity: 0;
     visibility: hidden;
-    transition: all 300ms ease;
+    transition: opacity 300ms ease, visibility 300ms ease;
     z-index: 1000;
 }
 
@@ -1877,13 +1876,7 @@ body.menu-open footer {
 
 /* 背景に薄いオーバーレイ（視線をメニューへ誘導） */
 /* メニュー用のクリック可能なオーバーレイ（メニュー外をタップで閉じる） */
-.menu-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.06);
-    z-index: 1000; /* オーバーレイはヘッダーより前、メニューより下に配置 */
-    pointer-events: auto; /* クリックで閉じるため有効にする */
-}
+/* ...overlay duplicate removed (handled above) ... */
 
 /* メニューを閉じるときは素早く効果を戻すためのクラス */
 .menu-closing main,
@@ -1908,7 +1901,8 @@ body.menu-open footer {
     transition: transform 220ms ease, box-shadow 220ms ease;
 }
 .header-hidden {
-    transform: translateY(-100%);
+    /* ヘッダーは常時表示。スクロールで隠れないように無効化 */
+    transform: none !important;
 }
 
 /* メニュー自体の前面位置を確保 */
