@@ -9,5 +9,52 @@
 <body>
   <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 
+  <!-- Debug / Initialization for Netlify Identity -->
+  <script>
+    // Helpful debug info when the login modal fails to open.
+    (function () {
+      function log() { console.log.apply(console, arguments); }
+      function warn() { console.warn.apply(console, arguments); }
+      function err() { console.error.apply(console, arguments); }
+
+      // Expose a helper to manually open the widget from console: window.openIdentity()
+      window.openIdentity = function (mode) {
+        try {
+          if (!window.netlifyIdentity) { err('netlifyIdentity object not found'); return; }
+          // mode can be 'login' or 'signup'
+          window.netlifyIdentity.open(mode || 'login');
+          log('netlifyIdentity.open() called, mode=', mode || 'login');
+        } catch (e) {
+          err('error calling netlifyIdentity.open():', e);
+        }
+      };
+
+      // On DOM ready, attach listeners and print status
+      document.addEventListener('DOMContentLoaded', function () {
+        log('DOM ready — checking netlifyIdentity...');
+        if (!window.netlifyIdentity) {
+          err('netlifyIdentity widget not loaded. Check script src and network.');
+          return;
+        }
+
+        try {
+          window.netlifyIdentity.on('init', function (user) { log('netlifyIdentity init, user=', user); });
+          window.netlifyIdentity.on('login', function (user) { log('netlifyIdentity login, user=', user); window.location.reload(); });
+          window.netlifyIdentity.on('logout', function () { log('netlifyIdentity logout'); window.location.reload(); });
+          log('netlifyIdentity event handlers attached');
+        } catch (e) {
+          err('error attaching netlifyIdentity listeners:', e);
+        }
+
+        // Quick sanity check: can we open the modal programmatically?
+        try {
+          // Do not automatically open — expose helper instead. Print instructions.
+          log('To test the widget manually, run: window.openIdentity() in the console.');
+        } catch (e) {
+          err('error during sanity checks:', e);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
