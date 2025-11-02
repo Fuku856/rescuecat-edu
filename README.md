@@ -102,3 +102,32 @@ rescuecat-edu/
 
 **しあわせねこ塾** - この世の全ての猫に安心して眠れる場所とお腹いっぱいの幸せを与えたい
 動物愛護や保護猫について学べるデジタルコンテンツ
+
+## Netlify CMS の導入（Netlify Identity + Git Gateway を利用した GitHub OAuth）
+このリポジトリには Netlify CMS の簡易設定を含めています。管理画面のエントリポイントは `admin/index.html`、設定ファイルは `admin/config.yml` です。
+
+推奨ワークフロー（前提：Netlify アカウント、GitHub リポジトリ）
+
+1. GitHub 側で OAuth App を作成
+   - Authorization callback URL: https://app.netlify.com/authenticate
+   - 作成後に表示される Client ID / Client Secret を控える
+
+2. Netlify にこのリポジトリをデプロイ
+   - Netlify ダッシュボードでサイトを作成（GitHub と連携）
+   - サイトの管理画面 > "Identity" を有効化（Enable Identity）
+   - "Services" 内の "Git Gateway" を有効化し、GitHub OAuth の Client ID/Secret を入力
+
+3. `admin/config.yml` の確認
+   - ここでは `backend: git-gateway` を利用する設定にしています。Netlify Identity が認証を仲介し、Git Gateway 経由で GitHub にコミットします。
+   - 既存の HTML ファイル（index.html / about.html / learning.html / quiz.html）をファイルコレクションとして編集できるように設定しています。編集時は HTML の構造を壊さないように注意してください。
+
+4. 管理画面にアクセス
+   - デプロイ後に https://<your-site>.netlify.app/admin/ にアクセスしてログインします。
+   - Netlify Identity のユーザー招待、または GitHub OAuth によるログインで編集可能になります。
+
+5. ローカルでの確認（任意）
+   - `netlify-cli` を利用すればローカルでのビルドや一部 Identity のエミュレーションが可能ですが、Git Gateway の完全な検証は Netlify 上で行うのが確実です。
+
+注意:
+- `admin/config.yml` は HTML ファイルを直接書き換える形式です。誤ってレイアウトの一部を消さないようバックアップを取るか、ブランチ運用をしてから変更してください。
+- 公開前に必ず Netlify 側で Identity / Git Gateway の設定が正しく行われていることを確認してください。

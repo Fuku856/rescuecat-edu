@@ -59,6 +59,10 @@ function loadComponents() {
             setTimeout(() => {
                 const s = document.querySelectorAll('.header-skeleton, .footer-skeleton');
                 s.forEach(el => el && el.remove());
+                // ローカルのデータファイルがあれば読み込んでページを動的に更新
+                if (typeof loadSiteData === 'function') {
+                    try { loadSiteData(); } catch (e) { console.warn('loadSiteData error', e); }
+                }
             }, 1500);
         }, 100);
     });
@@ -75,6 +79,88 @@ function setActiveMenu() {
         if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
             link.classList.add('active');
         }
+    });
+}
+
+// data/site.yml を簡易パースしてページの主要テキストを差し替える（軽量な実装）
+function loadSiteData() {
+    fetch('data/site.yml')
+        .then(r => { if (!r.ok) throw new Error('no site data'); return r.text(); })
+        .then(text => {
+            // シンプルな YAML パーサ（限定的）：トップレベルの key: value と block scalar | を扱う
+            const result = {};
+            const lines = text.split(/\r?\n/);
+            let i = 0;
+            while (i < lines.length) {
+                const line = lines[i];
+                const m = line.match(/^([a-zA-Z0-9_\-]+):\s*(.*)$/);
+                if (m) {
+                    const key = m[1];
+                    let rest = m[2] || '';
+                    if (rest === '|') {
+                        // block scalar
+                        i++;
+                        const buf = [];
+                        while (i < lines.length && /^\s/.test(lines[i])) {
+                            buf.push(lines[i].replace(/^\s{0,4}/, ''));
+                            i++;
+                        }
+                        result[key] = buf.join('\n').trim();
+                        continue; // already advanced i
+                    } else {
+                        // plain scalar (possibly quoted)
+                        rest = rest.replace(/^"|"$/g, '');
+                        result[key] = rest;
+                    }
+                }
+                i++;
+            }
+
+            // ヒーロー差し替え
+            const hero = document.querySelector('.hero-content');
+            if (hero) {
+                if (result.hero_title) {
+                    const h2 = hero.querySelector('h2');
+                    if (h2) h2.innerHTML = result.hero_title.replace(/\n/g, '<br>');
+                }
+                if (result.hero_text) {
+                    const p = hero.querySelector('p');
+                    if (p) p.textContent = result.hero_text;
+                }
+                if (result.hero_primary_label) {
+                    const a = hero.querySelector('.hero-buttons .btn-primary');
+                    if (a) a.textContent = result.hero_primary_label;
+                }
+                if (result.hero_secondary_label) {
+                    const a2 = hero.querySelector('.hero-buttons .btn-secondary');
+                    if (a2) a2.textContent = result.hero_secondary_label;
+                }
+            }
+
+            // 特徴セクション差し替え（簡易）
+            if (Array.isArray(result.features)) {
+                // 既存の features-grid を上書き
+                const grid = document.querySelector('.features-grid');
+                if (grid) {
+                    // build new cards
+                    grid.innerHTML = '';
+                    result.features.forEach(f => {
+                        const card = document.createElement('div');
+                        card.className = 'feature-card';
+                        card.innerHTML = `\n                            <div class="feature-icon">${escapeHtml(f.icon || '')}</div>\n                            <h4>${escapeHtml(f.title || '')}</h4>\n                            <p>${escapeHtml(f.text || '')}</p>\n                        `;
+                        grid.appendChild(card);
+                    });
+                }
+            }
+        })
+        .catch(() => {
+            // data/site.yml がない場合は静的なコンテンツを使う
+        });
+}
+
+function escapeHtml(str) {
+    return String(str).replace(/[&<>\"]+/g, function(s) {
+        return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[s]);
     });
 }
 
