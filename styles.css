@@ -224,15 +224,14 @@ body.components-ready .philosophy-item:hover {
 }
 
 .hamburger span {
-    width: 22px;
-    height: 2px;
+    width: 24px;
+    height: 3px;
     background-color: #333; /* 黒色 */
-    margin: 5px 0;
+    margin: 4px 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
     display: block;
-    border-radius: 1px;
-    position: relative;
+    border-radius: 2px;
 }
 
 /* メニューが開いているときのハンバーガーボタンの色変更 */
@@ -1848,9 +1847,12 @@ body.menu-open .hamburger span {
     }
     
     .hamburger.active span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
+        position: absolute;
+        top: 50%;
+        left: 50%;
         margin: 0;
-        width: 22px;
+        transform: translate(-50%, -50%) rotate(45deg);
+        width: 24px;
     }
     
     .hamburger.active span:nth-child(2) {
@@ -1861,19 +1863,12 @@ body.menu-open .hamburger span {
     }
     
     .hamburger.active span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-        margin: 0;
-        width: 22px;
-    }
-    
-    /* Xの形をより正確にするため、位置を微調整 */
-    .hamburger.active span:nth-child(1),
-    .hamburger.active span:nth-child(3) {
         position: absolute;
-        left: 50%;
         top: 50%;
-        margin-left: -11px; /* 幅の半分 */
-        margin-top: -1px; /* 高さの半分 */
+        left: 50%;
+        margin: 0;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        width: 24px;
     }
 
     /* モバイルメニューのリンクスタイル */
