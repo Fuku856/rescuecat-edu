@@ -112,12 +112,20 @@ body.components-ready .philosophy-item:hover {
 .header-skeleton { background: linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02)); }
 .footer-skeleton { background: linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02)); }
 
+/* ヘッダープレースホルダー（固定ヘッダーの高さ分のスペースを確保） */
+#header-placeholder {
+    height: 80px;
+    position: relative;
+}
+
 /* ヘッダー */
 .header {
     background: transparent;
     box-shadow: none;
-    position: sticky;
+    position: fixed; /* スクロールしても常に同じ位置に固定 */
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 10003; /* 常に最前面に表示（透明でページ全体と調和） */
     width: 100%;
     opacity: 1 !important; /* 常に表示 */
