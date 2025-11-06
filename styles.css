@@ -2065,6 +2065,20 @@ body.menu-open footer {
     transition: filter 300ms ease;
 }
 
+/* メニューが閉じた直後に確実にリセット */
+body.menu-closing main,
+body.menu-closing .container,
+body.menu-closing footer,
+body.menu-closing section {
+    filter: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    transition: none !important;
+    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
 /* ヘッダーは常にクリアに */
 body.menu-open header {
     filter: none;
@@ -2105,10 +2119,23 @@ body.menu-open footer {
 /* メニューが閉じた時に確実にリセット */
 body:not(.menu-open) main,
 body:not(.menu-open) .container,
-body:not(.menu-open) footer {
+body:not(.menu-open) footer,
+body:not(.menu-open) section,
+body:not(.menu-open) div:not(.header):not(.nav-menu):not(.hamburger) {
     filter: none !important;
     transform: none !important;
     pointer-events: auto !important;
+    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* ページ読み込み時にも確実にリセット */
+body.components-ready main,
+body.components-ready .container,
+body.components-ready footer {
+    filter: none !important;
+    transform: none !important;
 }
 
 /* 背景に薄いオーバーレイ（視線をメニューへ誘導） */

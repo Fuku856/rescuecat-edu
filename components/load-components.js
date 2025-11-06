@@ -83,20 +83,29 @@
                 // メニューを閉じる
                 navMenu.classList.add('closing');
                 body.classList.remove('menu-open');
+                body.classList.add('menu-closing');
                 
                 // ぼかし効果を即座にリセット
-                const mainElements = document.querySelectorAll('main, .container, footer');
+                const mainElements = document.querySelectorAll('main, .container, footer, section');
                 mainElements.forEach(el => {
-                    el.style.filter = '';
-                    el.style.transform = '';
-                    el.style.pointerEvents = '';
+                    el.style.filter = 'none';
+                    el.style.transform = 'none';
+                    el.style.pointerEvents = 'auto';
+                    el.style.webkitFilter = 'none';
+                    el.style.backdropFilter = 'none';
+                    el.style.webkitBackdropFilter = 'none';
                 });
+                
+                // 強制的に再描画
+                void document.body.offsetHeight;
                 
                 setTimeout(() => {
                     navMenu.classList.remove('active', 'closing');
+                    body.classList.remove('menu-closing');
                 }, 200);
             } else {
                 // メニューを開く
+                body.classList.remove('menu-closing');
                 navMenu.classList.add('active');
                 body.classList.add('menu-open');
             }

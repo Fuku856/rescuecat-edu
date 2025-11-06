@@ -60,9 +60,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ページ読み込み時にすべてのホバー効果をリセット
     function resetHoverEffects() {
+        // bodyクラスを先にリセット
+        document.body.classList.remove('menu-open');
+        
         // すべての要素のインラインスタイルをリセット
         const allElements = document.querySelectorAll('*');
         allElements.forEach(el => {
+            // インラインスタイルを完全にクリア
             if (el.style.transform) {
                 el.style.transform = '';
             }
@@ -72,10 +76,24 @@ document.addEventListener('DOMContentLoaded', function() {
             if (el.style.filter) {
                 el.style.filter = '';
             }
+            if (el.style.pointerEvents) {
+                el.style.pointerEvents = '';
+            }
+            if (el.style.opacity && el !== document.body && !el.classList.contains('hero-content')) {
+                // アニメーション要素以外のopacityはリセットしない
+            }
         });
         
-        // bodyクラスをリセット
-        document.body.classList.remove('menu-open');
+        // main, container, footerを確実にリセット
+        const mainElements = document.querySelectorAll('main, .container, footer');
+        mainElements.forEach(el => {
+            el.style.filter = 'none';
+            el.style.transform = 'none';
+            el.style.pointerEvents = 'auto';
+        });
+        
+        // 強制的に再描画をトリガー
+        void document.body.offsetHeight;
     }
     
     // ページ読み込み時にリセット
