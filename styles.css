@@ -94,7 +94,8 @@ body.components-ready .philosophy-item:hover {
     box-shadow: none;
     position: sticky;
     top: 0;
-    z-index: 900; /* 下にオーバーレイが入るように調整 */
+    z-index: 10003; /* 常に最前面に表示（透明でページ全体と調和） */
+    width: 100%;
 }
 
 .nav-container {
@@ -105,6 +106,8 @@ body.components-ready .philosophy-item:hover {
     justify-content: space-between;
     align-items: center;
     height: 80px;
+    position: relative;
+    z-index: inherit; /* ヘッダーのz-indexを継承 */
 }
 
 .logo-link {
@@ -135,7 +138,8 @@ body.components-ready .philosophy-item:hover {
     display: flex;
     list-style: none;
     gap: 30px;
-    z-index: 1002; /* 常に最前面に */
+    position: relative;
+    z-index: inherit; /* ヘッダーのz-indexを継承 */
     filter: none !important; /* ブラー効果から保護 */
     transform: none !important; /* 変形から保護 */
 }
@@ -1708,7 +1712,7 @@ body.menu-open .hamburger span {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
-        z-index: 1003;
+        z-index: 10004; /* ヘッダーとメニューの上に表示（モバイルメニュー用） */
     }
     
     /* モバイルメニュー */
@@ -1724,7 +1728,7 @@ body.menu-open .hamburger span {
         -webkit-backdrop-filter: blur(6px) saturate(160%);
         backdrop-filter: blur(6px) saturate(160%);
         padding: 20px;
-        z-index: 1002;
+        z-index: 10005; /* モバイルメニューはヘッダーの上に表示 */
         opacity: 0;
         visibility: hidden;
         transform: scale(0.98);
@@ -1916,10 +1920,7 @@ body.menu-open footer {
     transform: none !important;
 }
 
-/* メニュー自体の前面位置を確保 */
-.nav-menu {
-    z-index: 1002; /* ナビはオーバーレイの上に出す */
-}
+/* メニュー自体の前面位置を確保（ヘッダーが最前面なので、この設定はモバイル時のみ有効） */
 
 @media (max-width: 480px) {
     .container {
