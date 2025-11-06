@@ -120,7 +120,7 @@ body.components-ready .philosophy-item:hover {
 
 /* ヘッダー */
 .header {
-    background: rgba(255, 240, 245, 0.95); /* 薄いピンクの背景 */
+    background: rgba(255, 228, 236, 0.98); /* もう少し濃いピンクの背景 */
     backdrop-filter: blur(10px); /* 背景を少しぼかしてより自然に */
     box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* 軽い影を追加 */
     position: fixed; /* スクロールしても常に同じ位置に固定 */
@@ -1751,44 +1751,48 @@ body.menu-open .hamburger span {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
-        z-index: 10004; /* ヘッダーとメニューの上に表示（モバイルメニュー用） */
+        position: relative;
+        z-index: 10007; /* メニューの上に表示されるように最前面に */
     }
     
     /* モバイルメニュー */
     .nav-menu {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        background: rgba(255,255,255,0.75);
-        -webkit-backdrop-filter: blur(6px) saturate(160%);
-        backdrop-filter: blur(6px) saturate(160%);
-        padding: 20px;
-        z-index: 10005; /* モバイルメニューはヘッダーの上に表示 */
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 20px !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+        backdrop-filter: blur(10px) saturate(160%) !important;
+        padding: 20px !important;
+        z-index: 10006 !important; /* モバイルメニューはヘッダーの上に表示 */
         opacity: 0;
         visibility: hidden;
-        transform: scale(0.98);
-        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateY(-20px) !important;
+        transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease !important;
         pointer-events: none;
-        will-change: opacity, transform, backdrop-filter, background;
-        contain: paint;
+        filter: none !important; /* ブラー効果を無効化 */
     }
 
     .nav-menu.active {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1);
-        pointer-events: auto;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
     }
 
     /* closing アニメーション */
     .nav-menu.closing {
         opacity: 0;
         visibility: hidden;
-        transform: scale(0.98);
+        transform: translateY(-20px);
+        transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
     }
     
     /* ハンバーガーメニューのアニメーション */
@@ -1899,6 +1903,11 @@ body.menu-open footer {
 /* ヘッダーは常にクリアに */
 body.menu-open header {
     filter: none;
+    z-index: 10005; /* メニューの下に表示 */
+}
+
+body.menu-open .hamburger {
+    z-index: 10007; /* ハンバーガーボタンは最前面に */
 }
 
 /* メニューオーバーレイ */
