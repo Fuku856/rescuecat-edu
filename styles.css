@@ -1735,7 +1735,6 @@ body.menu-open .hamburger span {
     opacity: 0;
     transform: scale(0.8);
     pointer-events: none;
-    flex-direction: column;
 }
 
 .scroll-top-btn.show {
@@ -1756,16 +1755,13 @@ body.menu-open .hamburger span {
 }
 
 .scroll-top-btn span {
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-block;
     font-size: 28px;
     font-weight: normal;
-    width: 100%;
-    height: 100%;
+    line-height: 1;
     margin: 0;
     padding: 0;
+    vertical-align: middle;
 }
 
 .footer-content {
@@ -2220,5 +2216,18 @@ body.components-ready footer {
     }
     
     /* スクロールトップボタンはPCと同じスタイルを維持 */
-    /* モバイルでもPCと同じサイズとスタイルを使用 */
+    .scroll-top-btn {
+        bottom: 30px !important;
+        right: 30px !important;
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .scroll-top-btn span {
+        font-size: 28px !important;
+        display: inline-block !important;
+        line-height: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 }
