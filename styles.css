@@ -2011,8 +2011,46 @@ body.menu-open .hamburger span {
     }
     
     .btn {
-        padding: 12px 25px;
-        font-size: 0.9rem;
+        padding: 14px 28px;
+        font-size: 1rem;
+        min-height: 44px; /* タッチデバイス用の最小タップサイズ */
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: rgba(255, 107, 107, 0.2);
+        touch-action: manipulation; /* ダブルタップズームを無効化 */
+    }
+    
+    /* モバイルではホバー効果を無効化（タッチデバイスではhoverが残るため） */
+    .btn:hover,
+    .btn:active {
+        transform: none !important;
+    }
+    
+    .btn:active {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+    
+    /* カードのホバー効果もモバイルでは無効化 */
+    .feature-card:hover,
+    .content-card:hover,
+    .quiz-option:hover,
+    .activity-card:hover,
+    .philosophy-item:hover,
+    .support-way:hover {
+        transform: none !important;
+    }
+    
+    .feature-card:active,
+    .content-card:active,
+    .quiz-option:active,
+    .activity-card:active,
+    .philosophy-item:active,
+    .support-way:active {
+        transform: scale(0.98);
+        opacity: 0.9;
     }
 }
 
@@ -2062,6 +2100,15 @@ body.menu-open footer {
     pointer-events: none; /* メニュー開時は背景操作を無効化 */
     will-change: transform, filter;
     contain: paint;
+}
+
+/* メニューが閉じた時に確実にリセット */
+body:not(.menu-open) main,
+body:not(.menu-open) .container,
+body:not(.menu-open) footer {
+    filter: none !important;
+    transform: none !important;
+    pointer-events: auto !important;
 }
 
 /* 背景に薄いオーバーレイ（視線をメニューへ誘導） */

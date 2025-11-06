@@ -58,31 +58,74 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ボタンのホバー効果
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px) scale(1.05)';
+    // ページ読み込み時にすべてのホバー効果をリセット
+    function resetHoverEffects() {
+        // すべての要素のインラインスタイルをリセット
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
+            if (el.style.transform) {
+                el.style.transform = '';
+            }
+            if (el.style.boxShadow) {
+                el.style.boxShadow = '';
+            }
+            if (el.style.filter) {
+                el.style.filter = '';
+            }
         });
         
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
+        // bodyクラスをリセット
+        document.body.classList.remove('menu-open');
+    }
+    
+    // ページ読み込み時にリセット
+    resetHoverEffects();
+    
+    // ページ表示時にリセット（ブラウザバック時にも対応）
+    window.addEventListener('pageshow', function(event) {
+        resetHoverEffects();
     });
     
-    // カードのホバー効果
-    const cards = document.querySelectorAll('.feature-card, .content-card, .quiz-option, .activity-card, .philosophy-item, .support-way');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-            this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.15)';
+    // ページを離れる前にリセット
+    window.addEventListener('beforeunload', resetHoverEffects);
+    
+    // フォーカスが戻った時にもリセット
+    window.addEventListener('focus', resetHoverEffects);
+    
+    // ページ遷移時にもリセット（popstateイベント）
+    window.addEventListener('popstate', resetHoverEffects);
+    
+    // DOMContentLoaded時にもリセット（念のため）
+    document.addEventListener('DOMContentLoaded', resetHoverEffects);
+    
+    // ボタンのホバー効果（マウスデバイスのみ、タッチデバイスでは無効）
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (!isTouchDevice) {
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
         });
         
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-            this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+        // カードのホバー効果（マウスデバイスのみ）
+        const cards = document.querySelectorAll('.feature-card, .content-card, .quiz-option, .activity-card, .philosophy-item, .support-way');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+                this.style.boxShadow = '0 15px 40px rgba(0,0,0,0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.boxShadow = '';
+            });
         });
-    });
+    }
     
     // 学習コンテンツページの目次機能
     const tocLinks = document.querySelectorAll('.table-of-contents a');

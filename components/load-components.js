@@ -84,6 +84,14 @@
                 navMenu.classList.add('closing');
                 body.classList.remove('menu-open');
                 
+                // ぼかし効果を即座にリセット
+                const mainElements = document.querySelectorAll('main, .container, footer');
+                mainElements.forEach(el => {
+                    el.style.filter = '';
+                    el.style.transform = '';
+                    el.style.pointerEvents = '';
+                });
+                
                 setTimeout(() => {
                     navMenu.classList.remove('active', 'closing');
                 }, 200);
