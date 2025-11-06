@@ -1760,7 +1760,7 @@ body.menu-open .hamburger span {
     line-height: 1;
     display: block;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .footer-content {
