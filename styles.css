@@ -1759,19 +1759,8 @@ body.menu-open .hamburger span {
 .scroll-top-btn span {
     line-height: 1;
     display: block;
-}
-
-/* シェブロン矢印（V字型）のスタイル */
-.scroll-top-arrow {
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 12px solid white;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    top: 2px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .footer-content {
