@@ -184,6 +184,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // コンソールメッセージ
     console.log('🐱 しあわせねこ塾へようこそ！');
     console.log('動物愛護について学んで、一緒に猫たちを幸せにしましょう！');
+    
+    // スクロールトップボタンの機能
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    if (scrollTopBtn) {
+        // スクロール位置に応じてボタンを表示/非表示
+        function toggleScrollTopButton() {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        }
+        
+        // スクロールイベント
+        window.addEventListener('scroll', toggleScrollTopButton);
+        
+        // 初期状態をチェック
+        toggleScrollTopButton();
+        
+        // クリックでページトップにスクロール
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 });
 
 // ユーティリティ関数
