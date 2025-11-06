@@ -224,11 +224,13 @@ body.components-ready .philosophy-item:hover {
 
 .hamburger span {
     width: 24px;
-    height: 2px;
+    height: 2.5px;
     background-color: #333; /* 黒色 */
-    margin: 3px 0;
-    transition: all 0.2s ease;
+    margin: 4px 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
+    display: block;
+    border-radius: 2px;
 }
 
 /* メニューが開いているときのハンバーガーボタンの色変更 */
@@ -1799,6 +1801,15 @@ body.menu-open .hamburger span {
         -webkit-overflow-scrolling: touch !important;
         list-style: none !important;
         box-sizing: border-box !important;
+        /* メニュー背景をクリック可能にする */
+        cursor: pointer !important;
+    }
+    
+    /* メニュー内のコンテンツエリアはクリックをブロックしない */
+    .nav-menu li,
+    .nav-menu a {
+        cursor: default !important;
+        pointer-events: auto !important;
     }
 
     .nav-menu.active {
@@ -1806,6 +1817,7 @@ body.menu-open .hamburger span {
         visibility: visible !important;
         transform: translateX(0) !important;
         pointer-events: auto !important;
+        cursor: pointer !important; /* メニュー背景をクリック可能に */
     }
 
     /* closing アニメーション */
@@ -1827,17 +1839,27 @@ body.menu-open .hamburger span {
         flex-shrink: 0 !important;
     }
     
-    /* ハンバーガーメニューのアニメーション */
+    /* ハンバーガーメニューのアニメーション - Xの形に変形 */
     .hamburger.active span:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
+        transform: translateY(8px) rotate(45deg);
+        margin: 0;
     }
     
     .hamburger.active span:nth-child(2) {
         opacity: 0;
+        transform: scaleX(0);
+        margin: 0;
     }
     
     .hamburger.active span:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg);
+        margin: 0;
+    }
+    
+    /* アクティブ時のハンバーガーボタンの位置調整 */
+    .hamburger.active {
+        justify-content: center;
+        align-items: center;
     }
 
     /* モバイルメニューのリンクスタイル */

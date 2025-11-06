@@ -114,11 +114,40 @@
             }
         });
         
-        // メニュー外をクリックしたらメニューを閉じる
-        document.addEventListener('click', function(e) {
+        // メニュー外をタップ/クリックしたらメニューを閉じる
+        function closeMenuOnOutsideClick(e) {
             if (navMenu.classList.contains('active') && 
                 !navMenu.contains(e.target) && 
                 !hamburger.contains(e.target)) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMenu();
+            }
+        }
+        
+        // クリックとタッチイベントの両方に対応
+        document.addEventListener('click', closeMenuOnOutsideClick, true);
+        document.addEventListener('touchend', closeMenuOnOutsideClick, true);
+        
+        // メニュー背景をクリックしても閉じる
+        navMenu.addEventListener('click', function(e) {
+            // リンクやリストアイテム以外の場所（メニュー背景）をクリックした場合
+            if (e.target === navMenu || 
+                (e.target.tagName === 'UL' && !e.target.closest('li')) ||
+                (e.target.classList && e.target.classList.contains('nav-menu'))) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMenu();
+            }
+        });
+        
+        // タッチイベントにも対応
+        navMenu.addEventListener('touchend', function(e) {
+            if (e.target === navMenu || 
+                (e.target.tagName === 'UL' && !e.target.closest('li')) ||
+                (e.target.classList && e.target.classList.contains('nav-menu'))) {
+                e.preventDefault();
+                e.stopPropagation();
                 toggleMenu();
             }
         });
