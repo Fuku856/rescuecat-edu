@@ -90,8 +90,8 @@ body.components-ready .philosophy-item:hover {
 
 /* ヘッダー */
 .header {
-    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background: transparent;
+    box-shadow: none;
     position: sticky;
     top: 0;
     z-index: 900; /* 下にオーバーレイが入るように調整 */
@@ -122,11 +122,13 @@ body.components-ready .philosophy-item:hover {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 5px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .logo p {
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.95);
     font-size: 0.9rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .nav-menu {
@@ -145,6 +147,7 @@ body.components-ready .philosophy-item:hover {
     padding: 10px 15px;
     border-radius: 25px;
     transition: all 0.3s ease;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .nav-menu a:hover,

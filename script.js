@@ -20,19 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // スクロール時のヘッダー効果
-    const header = document.querySelector('.header');
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 107, 107, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #ff6b6b, #ff8e8e)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-    }
+    // スクロール時のヘッダー効果（背景は常に透明のまま）
+    // ヘッダーの背景は透明のため、スクロール時の背景変更は無効化
     
     // アニメーション効果
     const observerOptions = {
