@@ -216,6 +216,7 @@ body.components-ready .philosophy-item:hover {
     border-radius: 8px;
     background: rgba(255, 107, 107, 0.1);
     transition: background-color 0.3s ease;
+    position: relative;
 }
 
 .hamburger:hover {
@@ -223,14 +224,15 @@ body.components-ready .philosophy-item:hover {
 }
 
 .hamburger span {
-    width: 24px;
-    height: 2.5px;
+    width: 22px;
+    height: 2px;
     background-color: #333; /* 黒色 */
-    margin: 4px 0;
+    margin: 5px 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
     display: block;
-    border-radius: 2px;
+    border-radius: 1px;
+    position: relative;
 }
 
 /* メニューが開いているときのハンバーガーボタンの色変更 */
@@ -1840,26 +1842,38 @@ body.menu-open .hamburger span {
     }
     
     /* ハンバーガーメニューのアニメーション - Xの形に変形 */
+    .hamburger.active {
+        justify-content: center;
+        align-items: center;
+    }
+    
     .hamburger.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(7px) rotate(45deg);
         margin: 0;
+        width: 22px;
     }
     
     .hamburger.active span:nth-child(2) {
         opacity: 0;
         transform: scaleX(0);
+        width: 0;
         margin: 0;
     }
     
     .hamburger.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-7px) rotate(-45deg);
         margin: 0;
+        width: 22px;
     }
     
-    /* アクティブ時のハンバーガーボタンの位置調整 */
-    .hamburger.active {
-        justify-content: center;
-        align-items: center;
+    /* Xの形をより正確にするため、位置を微調整 */
+    .hamburger.active span:nth-child(1),
+    .hamburger.active span:nth-child(3) {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -11px; /* 幅の半分 */
+        margin-top: -1px; /* 高さの半分 */
     }
 
     /* モバイルメニューのリンクスタイル */
